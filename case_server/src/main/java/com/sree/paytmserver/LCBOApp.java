@@ -25,8 +25,11 @@ public class LCBOApp {
         //reading the war file from predefined location for case 3
         //File warFile = new File("/var/javaapp/paytmlcbo.war");
         
+        //reading the war for case 4
+        File warFile = new File("/var/javaapp/paytmnoplogin.war");
+        
         //reading the war for case 4 & 5 
-        File warFile = new File("/var/javaapp/paytmlogin.war");
+        //File warFile = new File("/var/javaapp/paytmlogin.war");
         if (!warFile.exists()){
             throw new RuntimeException("file not found");
         }
@@ -34,8 +37,13 @@ public class LCBOApp {
         
         //Webcontext for case 3
         //webLcboContext.setContextPath("/paytmlcbo");
+        
+        // WebContext for case 4
+        
+        webLcboContext.setContextPath("/paytmnoplogin");
+        
         //webcontext for case 4 & 5
-        webLcboContext.setContextPath("/paytmlogin");
+        //webLcboContext.setContextPath("/paytmlogin");
         webLcboContext.setWar(warFile.getAbsolutePath());
         webLcboContext.setExtractWAR(true);
         //setting jsp configuration

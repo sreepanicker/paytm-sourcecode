@@ -1,0 +1,30 @@
+Instructions 
+**************************************************************
+Case 2:
+docker pull sreepanicker/paytmhello
+docker run –d –p 80:80 --name paytmhello sreepanicker/paytmhello
+
+****************
+case 3:
+docker pull sreepanicker/paytmlcbo
+docker run –d –p 80:80 --name paytmlcbo sreepanicker/paytmlcbo
+
+******************
+case 4: paytm no persist login(paytmnoplogin)
+docker pull sreepanicker/paytmnoplogin
+docker run –d –p 80:80 --name paytmnoplogin sreepanicker/paytmnoplogin
+
+*************************
+case 4&5:
+docker create network paytm
+docker pull sreepanicker/paytmlogin
+docker run –d –p 80:80 --name --net=paytm paytmlogin sreepanicker/paytmlogin
+
+// couchbase , you need  to create a bucket called “USER_PROFILE” 
+docker pull sreepanicker/paytmcouchbase
+docker run –d –p 8091-8094:8091-8094 –p 11210:11210 --name paytmcouchbase --net=paytm sreepanicker/paytmcouchbase 
+
+//setup the bucket 
+http://<<ip-address>>:8091
+bucket name : USER_PROFILE 
+no replication 
