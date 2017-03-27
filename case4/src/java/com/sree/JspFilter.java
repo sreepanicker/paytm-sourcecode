@@ -17,12 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 /**
  *
  * @author sreejithu.panicker
+ * Validating all the input URL's
  */
 public class JspFilter implements Filter {
     FilterConfig filterConfig = null;
     public JspFilter() {
-    }    
-   
+    }
+
     public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain)
             throws IOException, ServletException {
 
@@ -31,7 +32,7 @@ public class JspFilter implements Filter {
             if (requestURI.contains("profiledetail.jsp") ){
                  request.getRequestDispatcher("/login.jsp").forward(request, response);
             }else{
-                chain.doFilter(request, response); 
+                chain.doFilter(request, response);
             }
     }
 
@@ -39,12 +40,12 @@ public class JspFilter implements Filter {
     public void destroy() {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    	
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 	this.filterConfig = filterConfig;
     }
 
 
-    
+
 }

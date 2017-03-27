@@ -33,15 +33,15 @@ public class controller extends HttpServlet {
         String actionItem = (request.getParameter("hiddenitem") != null) ? request.getParameter("hiddenitem") : "";
         switch (actionItem) {
             case "login":
-                // if the login is success 
+                // if the login is success
                 String logName = (request.getParameter("username") != null) ? request.getParameter("username") : "";
                 String pass = (request.getParameter("password") != null) ? request.getParameter("password") : "";
-                
-                //serverside validation 
+
+                //serverside validation
                 if (!logName.equals("") && !pass.equals("")) {
                     UserObject userObject = readUser(logName, pass);
                     if (userObject!=null) {
-                        HttpSession httpSession = request.getSession(true);                       
+                        HttpSession httpSession = request.getSession(true);
                         httpSession.setAttribute("logName",logName);
                         httpSession.setAttribute("sessionId", httpSession.getId());
                         request.setAttribute("fullname",userObject.getUserName());
@@ -56,7 +56,7 @@ public class controller extends HttpServlet {
                 }
                 break;
             case "newuser":
-                // check first user is there 
+                // check first user is there
                 //validate the data
                 String loginName = (request.getParameter("loginname") != null) ? request.getParameter("loginname") : "";
                 String userName = (request.getParameter("username") != null) ? request.getParameter("username") : "";
@@ -66,9 +66,9 @@ public class controller extends HttpServlet {
                 if (repPassword.equals(passWord) && !userName.equals("") && !loginName.equals("") ) {
                     // checking user already exists
                     UserObject userObjecct = readUser(loginName,null);
-                   
+
                     if (userObjecct == null) {
-                        //if the creation is sucessfull  
+                        //if the creation is sucessfull
                         if (createUser(loginName,userName,passWord) != null){
                             HttpSession httpSession = request.getSession(true);
                             httpSession.setAttribute("logName",loginName);
@@ -92,17 +92,18 @@ public class controller extends HttpServlet {
                 //getting the current session assocaiated with current request;
                 HttpSession httpSession = request.getSession();
                 if (httpSession != null) {
-                    //invalidating sesion 
+                    //invalidating sesion
                     httpSession.invalidate();
                 }
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
                 break;
+                // change password logic
             case "changepassword":
                 String password = (request.getParameter("password") != null) ? request.getParameter("password") : "";
                 String reppassword = (request.getParameter("password_repeat") != null) ? request.getParameter("password_repeat") : "";
                 if (password.equals(reppassword)){
                     updatePassword((String)request.getSession().getAttribute("logName"),password);
-                    request.setAttribute("error", " * password changed");                    
+                    request.setAttribute("error", " * password changed");
                 }else {
                     request.setAttribute("error", "Password doesn't match!");
                 }
@@ -166,13 +167,13 @@ public class controller extends HttpServlet {
     public void destroy() {
         super.destroy(); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
     /*
      this function will read the data from couch db/servlet Context based on username(loginName)
     */
-    
+
     private UserObject readUser(String userName, String password) {
-        
+
         UserObject user = (UserObject)((ConcurrentHashMap)getServletContext().getAttribute("user")).get(userName);
         if( user != null && password!=null){
            if (!user.getPassWord().equals(password)){
@@ -193,7 +194,7 @@ public class controller extends HttpServlet {
         ((ConcurrentHashMap)getServletContext().getAttribute("user")).put(loginName, userObject);
         return userObject;
     }
-    
+
     private  void updatePassword(String logName, String passwd){
         ((UserObject)((ConcurrentHashMap)getServletContext().getAttribute("user")).get(logName)).setPassWord(passwd);
     }

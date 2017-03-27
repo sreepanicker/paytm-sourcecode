@@ -1,18 +1,26 @@
 Instructions 
 **************************************************************
 Case 2:
+
 docker pull sreepanicker/paytmhello
 docker run –d –p 80:80 --name paytmhello sreepanicker/paytmhello
+testing: Curl –X GET http://localhost/helloworld/greeting 
+
+(change localhost to your host ip)
 
 ****************
 case 3:
+
 docker pull sreepanicker/paytmlcbo
 docker run –d –p 80:80 --name paytmlcbo sreepanicker/paytmlcbo
+testing: http://localhost/paytmlcbo/search.jsp
 
 ******************
 case 4: paytm no persist login(paytmnoplogin)
 docker pull sreepanicker/paytmnoplogin
 docker run –d –p 80:80 --name paytmnoplogin sreepanicker/paytmnoplogin
+
+testing:http://localhost/paytmnoplogin
 
 *************************
 case 4&5:
@@ -28,3 +36,6 @@ docker run –d –p 8091-8094:8091-8094 –p 11210:11210 --name paytmcouchbase --net=
 http://<<ip-address>>:8091
 bucket name : USER_PROFILE 
 no replication 
+
+
+testing:http://localhost/paytmlogin 
